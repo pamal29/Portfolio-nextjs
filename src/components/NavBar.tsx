@@ -4,8 +4,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const navItems = [
   { id: "home", label: "Home" },
+  { id: "education", label: "Education" },
   { id: "projects", label: "Projects" },
-  { id: "certifications", label: "Certifications" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact Me" },
 ] as const;

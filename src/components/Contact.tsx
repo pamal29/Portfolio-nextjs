@@ -1,215 +1,312 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent } from "react";
+import {
+  FiArrowUpRight,
+  FiCheck,
+  FiMail,
+  FiMapPin,
+  FiSend,
+} from "react-icons/fi";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import Section from "./Section";
 import { profile } from "@/data/portfolio";
 
-const svgProps = {
-  width: 18,
-  height: 18,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.75,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true,
-};
-
-const MailIcon = () => (
-  <svg {...svgProps}>
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="m3 7 9 6 9-6" />
-  </svg>
-);
-
-const GithubIcon = () => (
-  <svg {...svgProps}>
-    <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" />
-  </svg>
-);
-
-const LinkedinIcon = () => (
-  <svg {...svgProps}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const ArrowIcon = () => (
-  <svg {...svgProps} width={16} height={16} strokeWidth={2}>
-    <path d="M7 17 17 7" />
-    <path d="M8 7h9v9" />
-  </svg>
-);
-
-const SendIcon = () => (
-  <svg {...svgProps} width={16} height={16}>
-    <path d="m22 2-7 20-4-9-9-4z" />
-    <path d="M22 2 11 13" />
-  </svg>
-);
-
-const PinIcon = () => (
-  <svg {...svgProps} width={16} height={16}>
-    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
-type LinkRow = {
-  label: string;
-  text: string;
-  href: string;
-  icon: ReactNode;
-  external: boolean;
-};
-
-const inputClass =
-  "w-full rounded-2xl border border-black/10 bg-black/5 px-5 py-4 text-sm text-black placeholder:text-black/40 transition-colors duration-200 focus:border-black/40 focus:outline-none";
-
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [needsEmail, setNeedsEmail] = useState(false);
 
-  const rows: LinkRow[] = [
-    {
-      label: "Email",
-      text: profile.email,
-      href: `mailto:${profile.email}`,
-      icon: <MailIcon />,
-      external: false,
-    },
+  const socialLinks = [
     {
       label: "GitHub",
-      text: "github.com/pamal29",
       href: profile.github,
-      icon: <GithubIcon />,
-      external: true,
+      Icon: FaGithub,
     },
     {
       label: "LinkedIn",
-      text: "LinkedIn profile",
       href: profile.linkedin,
-      icon: <LinkedinIcon />,
-      external: true,
+      Icon: FaLinkedinIn,
     },
-  ];
+  ].filter(
+    (item) =>
+      item.href &&
+      !item.href.includes("your-username")
+  );
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const name = String(data.get("name") ?? "");
-    const email = String(data.get("email") ?? "");
-    const subject = String(data.get("subject") ?? "") || `Hello from ${name}`;
-    const message = String(data.get("message") ?? "");
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!profile.email) {
+      setNeedsEmail(true);
+      return;
+    }
+
+    const form = new FormData(event.currentTarget);
+    const name = String(form.get("name") || "").trim();
+    const email = String(form.get("email") || "").trim();
+    const subject =
+      String(form.get("subject") || "").trim() ||
+      `Hello from ${name}`;
+    const message = String(form.get("message") || "").trim();
 
     const body = `${message}\n\n—\n${name}\n${email}`;
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+
+    const params = new URLSearchParams({
+      subject: `Portfolio: ${subject}`,
+      body,
+    });
+
+    window.location.href = `mailto:${profile.email}?${params.toString()}`;
+
     setSent(true);
+    setNeedsEmail(false);
   }
 
   return (
-    <Section id="contact" eyebrow="Contact" title="Let's work together">
-      <div className="grid overflow-hidden rounded-3xl border border-black/10 bg-white text-black shadow-xl shadow-black/10 md:grid-cols-2">
-        <div className="p-6 sm:p-10 md:border-r md:border-black/10">
-          <p className="max-w-sm text-base leading-relaxed text-black/60">
-            I&apos;m looking for internship and junior developer opportunities.
-            If you have a project or a role in mind, I&apos;d like to hear about
-            it.
-          </p>
+    <section
+      id="contact"
+      aria-labelledby="contact-title"
+      className="portfolio-contact relative isolate overflow-hidden px-5 pb-16 pt-24 sm:px-8 sm:pt-28"
+    >
+      <div
+        aria-hidden="true"
+        className="portfolio-grid pointer-events-none absolute inset-0 -z-20"
+      />
 
-          <ul className="mt-8 space-y-3">
-            {rows.map((r) => (
-              <li key={r.label}>
-                <a
-                  href={r.href}
-                  {...(r.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-black/5 p-3 pr-5 transition-colors duration-200 hover:border-black/30 hover:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70"
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-black/5 text-black">
-                    {r.icon}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-xs text-black/50">
-                      {r.label}
-                    </span>
-                    <span className="block truncate text-sm font-medium">
-                      {r.text}
-                    </span>
-                  </span>
-                  <span className="text-black/40 transition duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+      <div
+        aria-hidden="true"
+        className="portfolio-section-watermark pointer-events-none absolute -left-4 top-6 -z-10"
+      >
+        LET&apos;S TALK
+      </div>
 
-          <p className="mt-8 flex items-center gap-2 text-sm text-black/50">
-            <PinIcon />
-            Sri Lanka · Open to internships &amp; junior roles
+      <div
+        aria-hidden="true"
+        className="portfolio-contact-orb pointer-events-none absolute -right-32 top-1/4 -z-10"
+      />
+
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12">
+          <div className="glass-section-heading inline-block max-w-full rounded-[26px] px-7 py-5 sm:px-9">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+              Get in touch
+            </p>
+
+            <h2
+              id="contact-title"
+              className="mt-2 text-4xl font-bold tracking-[-0.065em] text-zinc-900 sm:text-6xl"
+            >
+              Contact Me<span className="text-zinc-400">.</span>
+            </h2>
+          </div>
+
+          <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-600">
+            Have a project, an opportunity, or just want to connect? I&apos;d
+            love to hear from you.
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-4 border-t border-black/10 p-6 sm:p-10 md:border-t-0"
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <input
-              name="name"
-              type="text"
-              required
-              autoComplete="name"
-              placeholder="Name"
-              aria-label="Your name"
-              className={inputClass}
-            />
-            <input
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="Email"
-              aria-label="Your email"
-              className={inputClass}
-            />
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+          <div className="glass-contact-card flex flex-col justify-between rounded-[30px] p-7 sm:p-9">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.23em] text-zinc-500">
+                LET&apos;S CONNECT
+              </p>
+
+              <h3 className="mt-5 text-4xl font-bold leading-tight tracking-[-0.07em] text-zinc-900 sm:text-5xl">
+                Let&apos;s build
+                <br />
+                something
+                <br />
+                together<span className="text-zinc-400">.</span>
+              </h3>
+
+              <p className="mt-5 max-w-xs text-sm leading-8 text-zinc-600">
+                I&apos;m looking for internship and junior developer
+                opportunities. If you have a project or a role in mind,
+                let&apos;s start a conversation.
+              </p>
+
+              <div className="mt-10 space-y-3">
+                <div className="glass-contact-info flex items-center gap-4 rounded-[20px] p-4">
+                  <div className="glass-skill-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl">
+                    <FiMail size={20} aria-hidden="true" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                      Email
+                    </p>
+
+                    {profile.email ? (
+                      <a
+                        href={`mailto:${profile.email}`}
+                        className="mt-1 block break-all text-sm font-semibold text-zinc-800 hover:underline"
+                      >
+                        {profile.email}
+                      </a>
+                    ) : (
+                      <p className="mt-1 text-sm font-semibold text-zinc-600">
+                        Add your email in portfolio.ts
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="glass-contact-info flex items-center gap-4 rounded-[20px] p-4">
+                  <div className="glass-skill-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl">
+                    <FiMapPin size={20} aria-hidden="true" />
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                      Based in
+                    </p>
+
+                    <p className="mt-1 text-sm font-semibold text-zinc-800">
+                      {profile.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-9 border-t border-white/60 pt-6">
+              <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-zinc-500">
+                Find me online
+              </p>
+
+              <div className="flex gap-3">
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    title={label}
+                    className="glass-social flex h-12 w-12 items-center justify-center rounded-2xl text-zinc-800 transition-transform duration-300 hover:-translate-y-1"
+                  >
+                    <Icon size={20} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
-          <input
-            name="subject"
-            type="text"
-            placeholder="Subject"
-            aria-label="Subject"
-            className={inputClass}
-          />
-          <textarea
-            name="message"
-            required
-            rows={6}
-            placeholder="Message"
-            aria-label="Message"
-            className={`${inputClass} min-h-[10rem] flex-1 resize-none`}
-          />
-          <button
-            type="submit"
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          >
-            Send message
-            <SendIcon />
-          </button>
-          <p
-            role="status"
-            className="min-h-[1.25rem] text-center text-xs text-black/50"
-          >
-            {sent ? "Opening your email app…" : ""}
+
+          <div className="glass-contact-card rounded-[30px] p-7 sm:p-9">
+            <div className="mb-7 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                  DIRECT MESSAGE
+                </p>
+
+                <h3 className="mt-1 text-2xl font-bold tracking-[-0.05em] text-zinc-900">
+                  Send a message<span className="text-zinc-400">.</span>
+                </h3>
+              </div>
+
+              <FiArrowUpRight
+                className="text-zinc-500"
+                size={25}
+                aria-hidden="true"
+              />
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label className="block text-xs font-semibold text-zinc-700">
+                  Your name
+                  <input
+                    required
+                    name="name"
+                    autoComplete="name"
+                    placeholder="Your name"
+                    className="glass-contact-input mt-2 block w-full rounded-2xl px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-500"
+                  />
+                </label>
+
+                <label className="block text-xs font-semibold text-zinc-700">
+                  Email address
+                  <input
+                    required
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    className="glass-contact-input mt-2 block w-full rounded-2xl px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-500"
+                  />
+                </label>
+              </div>
+
+              <label className="block text-xs font-semibold text-zinc-700">
+                Subject
+                <input
+                  name="subject"
+                  placeholder="Let's work together"
+                  className="glass-contact-input mt-2 block w-full rounded-2xl px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-500"
+                />
+              </label>
+
+              <label className="block text-xs font-semibold text-zinc-700">
+                Your message
+                <textarea
+                  required
+                  name="message"
+                  rows={5}
+                  maxLength={5000}
+                  placeholder="Tell me about your project..."
+                  className="glass-contact-input mt-2 block w-full resize-y rounded-2xl px-4 py-3.5 text-sm leading-7 text-zinc-900 outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-500"
+                />
+              </label>
+
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <p className="text-xs text-zinc-500">
+                  Opens your email app — no message is sent automatically.
+                </p>
+
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-4 rounded-full bg-zinc-900 px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-1 hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+                >
+                  Compose email
+                  <FiSend size={16} aria-hidden="true" />
+                </button>
+              </div>
+
+              <div
+                role="status"
+                aria-live="polite"
+                className="text-xs leading-6 text-zinc-600"
+              >
+                {needsEmail ? (
+                  "Add your email address to profile.email in portfolio.ts."
+                ) : sent ? (
+                  <span className="inline-flex items-center gap-2">
+                    <FiCheck aria-hidden="true" />
+                    Your email app should open with a drafted message. Check it
+                    before sending.
+                  </span>
+                ) : null}
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-zinc-300/60 py-7 text-xs text-zinc-500">
+          <p>
+            © 2026 {profile.name}. Crafted with care.
           </p>
-        </form>
+
+          <a
+            href="#home"
+            className="inline-flex items-center gap-2 font-semibold text-zinc-700 hover:text-zinc-900"
+          >
+            Back to top
+            <FiArrowUpRight aria-hidden="true" />
+          </a>
+        </footer>
       </div>
-    </Section>
+    </section>
   );
 }
