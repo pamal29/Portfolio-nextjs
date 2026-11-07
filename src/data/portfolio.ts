@@ -1,6 +1,6 @@
 export const profile = {
   name: "Pamal",
-  fullName: "Pamal", // TODO
+  fullName: "Pamal Pahasara",
   role: "Full-Stack Developer",
   location: "Sri Lanka",
   tagline:
@@ -9,9 +9,9 @@ export const profile = {
     "I'm a final-year BSc student in Information Systems at Sabaragamuwa University of Sri Lanka, and a full-stack developer who enjoys taking a product from idea to deployment.",
     "My work spans backend APIs with ASP.NET Core and FastAPI, spatial and relational data with PostgreSQL and PostGIS, React and React Native front ends, and cloud and CI/CD tooling. I care about clean structure, clear UX, and code other people can read.",
   ],
-  email: "you@example.com", // TODO
+  email: "pamalpahasara@example.com", 
   github: "https://github.com/pamal29",
-  linkedin: "https://www.linkedin.com/in/your-handle", // TODO
+  linkedin: "https://www.linkedin.com/in/pamal-pahasara-990ba2324/", 
   resumeUrl: "", // TODO: e.g. "/resume.pdf" with the file in /public
 };
 

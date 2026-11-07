@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { profile } from "@/data/portfolio";
+import { profile } from "../data/portfolio";
 
 export const metadata: Metadata = {
   title: `${profile.name} | ${profile.role}`,
