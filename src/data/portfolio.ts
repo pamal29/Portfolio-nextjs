@@ -2,6 +2,7 @@ export const profile = {
   name: "Pamal",
   fullName: "Pamal Pahasara",
   role: "Full-Stack Developer",
+  photo: "/profile.jpg",
   location: "Sri Lanka",
   tagline:
     "I build reliable web and mobile products, from database design to polished interfaces.",
