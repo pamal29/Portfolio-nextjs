@@ -41,11 +41,6 @@ import {
 } from "react-icons/si";
 import { skillGroups } from "@/data/portfolio";
 
-/**
- * Maps a skill name (lowercase) to its icon.
- * When you change skills in data/portfolio, add the new name here.
- * Anything not listed falls back to a generic code icon.
- */
 const iconMap: Record<string, IconType> = {
   react: SiReact,
   "react.js": SiReact,
@@ -110,49 +105,56 @@ export default function Skills() {
     >
       <div
         aria-hidden="true"
-        className="portfolio-grid pointer-events-none absolute inset-0 -z-20"
-      />
-
-      <div
-        aria-hidden="true"
         className="portfolio-section-watermark pointer-events-none absolute -left-4 top-6 -z-10 select-none"
       >
         TOOLKIT
       </div>
 
-      <div
-        aria-hidden="true"
-        className="portfolio-skills-orb pointer-events-none absolute -left-28 bottom-8 -z-10"
-      />
-
       <div className="mx-auto max-w-6xl">
         <div className="mb-12">
           <div className="glass-section-heading inline-block max-w-full rounded-[26px] px-7 py-5 sm:px-9">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: "var(--muted-text-color)" }}
+            >
               What I work with
             </p>
 
             <h2
               id="skills-title"
-              className="mt-2 text-4xl font-bold tracking-[-0.065em] text-zinc-900 sm:text-6xl"
+              className="mt-2 text-4xl font-bold tracking-[-0.065em] sm:text-6xl"
+              style={{ color: "var(--heading-color)" }}
             >
-              My Skills<span className="text-zinc-400">.</span>
+              My Skills
+              <span style={{ color: "var(--muted-text-color)" }}>.</span>
             </h2>
           </div>
 
-          <p className="mt-5 max-w-lg text-sm leading-7 text-zinc-600">
+          <p
+            className="mt-5 max-w-lg text-sm leading-7"
+            style={{ color: "var(--skills-description-color)" }}
+          >
             Technologies and tools I use to design, develop, and build modern
             software applications.
           </p>
         </div>
 
-        <div className="glass-skill-card divide-y divide-white/60 overflow-hidden rounded-[28px]">
-          {skillGroups.map((group) => (
+        <div className="glass-skill-card overflow-hidden rounded-[28px]">
+          {skillGroups.map((group, index) => (
             <div
               key={group.label}
-              className="grid gap-6 px-6 py-7 sm:px-8 md:grid-cols-[200px_1fr] md:gap-8"
+              className={[
+                "grid gap-6 px-6 py-7 sm:px-8 md:grid-cols-[200px_1fr] md:gap-8",
+                index !== skillGroups.length - 1 ? "border-b" : "",
+              ].join(" ")}
+              style={{
+                borderColor: "var(--skills-divider-color)",
+              }}
             >
-              <h3 className="text-lg font-bold tracking-[-0.03em] text-zinc-900 sm:text-xl md:pt-3">
+              <h3
+                className="text-lg font-bold tracking-[-0.03em] sm:text-xl md:pt-3"
+                style={{ color: "var(--skills-category-color)" }}
+              >
                 {group.label}
               </h3>
 
@@ -168,9 +170,14 @@ export default function Skills() {
                       <Icon
                         size={28}
                         aria-hidden="true"
-                        className="text-zinc-600 transition-colors duration-300 group-hover:text-zinc-900"
+                        className="transition-colors duration-300"
+                        style={{ color: "var(--skills-icon-color)" }}
                       />
-                      <span className="text-[11px] font-semibold leading-4 text-zinc-700">
+
+                      <span
+                        className="text-[11px] font-semibold leading-4"
+                        style={{ color: "var(--skills-item-color)" }}
+                      >
                         {item}
                       </span>
                     </li>

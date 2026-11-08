@@ -9,16 +9,6 @@ export default function Education() {
     >
       <div
         aria-hidden="true"
-        className="portfolio-grid pointer-events-none absolute inset-0 -z-10"
-      />
-
-      <div
-        aria-hidden="true"
-        className="portfolio-education-glow pointer-events-none absolute -z-10"
-      />
-
-      <div
-        aria-hidden="true"
         className="portfolio-section-watermark pointer-events-none absolute left-0 top-8 -z-10 select-none"
       >
         JOURNEY
@@ -26,16 +16,20 @@ export default function Education() {
 
       <div className="mx-auto max-w-6xl">
         <div className="glass-section-heading relative z-10 mb-12 inline-block max-w-full rounded-[26px] px-7 py-5 sm:px-9">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-500">
+          <span
+            className="text-[11px] font-semibold uppercase tracking-[0.25em]"
+            style={{ color: "var(--muted-text-color)" }}
+          >
             My background
           </span>
 
           <h2
             id="education-title"
-            className="mt-2 text-4xl font-bold tracking-[-0.065em] text-zinc-900 sm:text-6xl"
+            className="mt-2 text-4xl font-bold tracking-[-0.065em] sm:text-6xl"
+            style={{ color: "var(--heading-color)" }}
           >
             Education & Certifications
-            <span className="text-zinc-400">.</span>
+            <span style={{ color: "var(--muted-text-color)" }}>.</span>
           </h2>
         </div>
 
@@ -43,15 +37,22 @@ export default function Education() {
           {/* Education */}
           <div>
             <div className="mb-7">
-              <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
+              <h3
+                className="text-2xl font-bold tracking-tight"
+                style={{ color: "var(--education-heading-color)" }}
+              >
                 Education
               </h3>
-              <p className="mt-2 text-sm text-zinc-500">
+
+              <p
+                className="mt-2 text-sm"
+                style={{ color: "var(--education-description-color)" }}
+              >
                 My academic journey and qualifications.
               </p>
             </div>
 
-            <div className="relative space-y-6 before:absolute before:bottom-4 before:left-[17px] before:top-4 before:w-px before:bg-zinc-300 sm:before:left-[23px]">
+            <div className="relative space-y-6 before:absolute before:bottom-4 before:left-[17px] before:top-4 before:w-px before:bg-[var(--education-timeline-color)] sm:before:left-[23px]">
               {education.map((item) => (
                 <div
                   key={item.title}
@@ -59,24 +60,40 @@ export default function Education() {
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute left-[10px] top-9 z-10 h-4 w-4 rounded-full border-4 border-white bg-zinc-600 shadow-[0_0_0_1px_rgba(80,80,80,.2)] sm:left-[16px]"
+                    className="absolute left-[10px] top-9 z-10 h-4 w-4 rounded-full border-4 shadow-[0_0_0_1px_rgba(80,80,80,.2)] sm:left-[16px]"
+                    style={{
+                      borderColor: "var(--education-dot-border)",
+                      background: "var(--education-dot-background)",
+                    }}
                   />
 
                   <article className="glass-education-card group rounded-[26px] p-6 sm:p-8">
                     <div>
-                      <span className="mb-3 inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                      <span
+                        className="mb-3 inline-block text-[11px] font-semibold uppercase tracking-[0.2em]"
+                        style={{ color: "var(--education-period-color)" }}
+                      >
                         {item.period}
                       </span>
 
-                      <h4 className="text-xl font-bold tracking-[-0.035em] text-zinc-900 sm:text-2xl">
+                      <h4
+                        className="text-xl font-bold tracking-[-0.035em] sm:text-2xl"
+                        style={{ color: "var(--education-title-color)" }}
+                      >
                         {item.title}
                       </h4>
 
-                      <p className="mt-2 text-sm font-semibold text-zinc-600">
+                      <p
+                        className="mt-2 text-sm font-semibold"
+                        style={{ color: "var(--education-place-color)" }}
+                      >
                         {item.place}
                       </p>
 
-                      <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600">
+                      <p
+                        className="mt-4 max-w-2xl text-sm leading-7"
+                        style={{ color: "var(--education-note-color)" }}
+                      >
                         {item.note}
                       </p>
                     </div>
@@ -89,10 +106,17 @@ export default function Education() {
           {/* Certifications */}
           <div>
             <div className="mb-7">
-              <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
+              <h3
+                className="text-2xl font-bold tracking-tight"
+                style={{ color: "var(--certificate-heading-color)" }}
+              >
                 Certifications
               </h3>
-              <p className="mt-2 text-sm text-zinc-500">
+
+              <p
+                className="mt-2 text-sm"
+                style={{ color: "var(--certificate-description-color)" }}
+              >
                 Professional certificates and completed courses.
               </p>
             </div>
@@ -104,7 +128,14 @@ export default function Education() {
                   className="glass-certificate group relative overflow-hidden rounded-[24px] p-6"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-zinc-200 bg-white/70 text-zinc-600 shadow-sm">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border shadow-sm"
+                      style={{
+                        borderColor: "var(--certificate-icon-border)",
+                        background: "var(--certificate-icon-background)",
+                        color: "var(--certificate-icon-color)",
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="21"
@@ -115,6 +146,7 @@ export default function Education() {
                         strokeWidth="1.7"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        aria-hidden="true"
                       >
                         <path d="M12 15l-3.5 2 1-4-3-3 4.2-.3L12 6l1.3 3.7 4.2.3-3 3 1 4z" />
                         <path d="M8 17.5V22l4-2 4 2v-4.5" />
@@ -122,11 +154,17 @@ export default function Education() {
                     </div>
 
                     <div className="min-w-0">
-                      <h4 className="text-base font-bold leading-6 text-zinc-900">
+                      <h4
+                        className="text-base font-bold leading-6"
+                        style={{ color: "var(--certificate-title-color)" }}
+                      >
                         {certificate.title}
                       </h4>
 
-                      <p className="mt-2 text-sm text-zinc-500">
+                      <p
+                        className="mt-2 text-sm"
+                        style={{ color: "var(--certificate-issuer-color)" }}
+                      >
                         {certificate.issuer}
                       </p>
                     </div>

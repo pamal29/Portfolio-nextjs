@@ -23,7 +23,7 @@ export type Project = {
   github?: string;
   live?: string;
   featured?: boolean;
-  image?: string;
+  image: string;
 };
 
 export const projects: Project[] = [
@@ -67,6 +67,15 @@ export const projects: Project[] = [
   github: "YOUR_GITHUB_URL",
   live: "",
   image: "/projects/ytdownload.png",
+  },
+  {
+  title: "React Portfolio",
+  description: "A personal developer portfolio built with React and Tailwind CSS, showcasing projects, technical skills, and social profiles.",
+  tech: ["React", "Tailwind CSS,JavaScript"],
+  featured: false,
+  github: "YOUR_GITHUB_URL",
+  live: "",
+  image: "/projects/reactportfolio.png",
   },
 ];
 

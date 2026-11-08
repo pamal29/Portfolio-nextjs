@@ -13,10 +13,6 @@ const navItems = [
 type SectionId = (typeof navItems)[number]["id"];
 type Indicator = { left: number; width: number; ready: boolean };
 
-/**
- * Real glass effect: the surface is nearly transparent, and backdrop-filter
- * blurs the ACTUAL page moving underneath the fixed navigation.
- */
 export default function GlassNavbar() {
   const [active, setActive] = useState<SectionId>("home");
   const [scrolled, setScrolled] = useState(false);
@@ -25,6 +21,7 @@ export default function GlassNavbar() {
     width: 0,
     ready: false,
   });
+
   const linksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,24 +29,30 @@ export default function GlassNavbar() {
 
     const syncNavigation = () => {
       cancelAnimationFrame(frame);
+
       frame = requestAnimationFrame(() => {
         setScrolled(window.scrollY > 40);
+
         const checkpoint = window.innerHeight * 0.42;
         let current: SectionId = "home";
 
         for (const item of navItems) {
           const section = document.getElementById(item.id);
+
           if (section && section.getBoundingClientRect().top <= checkpoint) {
             current = item.id;
           }
         }
+
         setActive(current);
       });
     };
 
     syncNavigation();
+
     window.addEventListener("scroll", syncNavigation, { passive: true });
     window.addEventListener("resize", syncNavigation);
+
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", syncNavigation);
@@ -60,16 +63,28 @@ export default function GlassNavbar() {
   useLayoutEffect(() => {
     const links = linksRef.current;
     if (!links) return;
+
     const measure = () => {
-      const link = links.querySelector<HTMLElement>(`[data-nav-section="${active}"]`);
+      const link = links.querySelector<HTMLElement>(
+        `[data-nav-section="${active}"]`
+      );
+
       if (link) {
-        setIndicator({ left: link.offsetLeft, width: link.offsetWidth, ready: true });
+        setIndicator({
+          left: link.offsetLeft,
+          width: link.offsetWidth,
+          ready: true,
+        });
       }
     };
+
     measure();
+
     const observer = new ResizeObserver(measure);
     observer.observe(links);
+
     window.addEventListener("resize", measure);
+
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
@@ -88,17 +103,22 @@ export default function GlassNavbar() {
         ].join(" ")}
       >
         <div className="liquid-glass-nav max-w-[calc(100vw-24px)] overflow-x-auto rounded-full p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div ref={linksRef} className="relative flex w-max items-center gap-0.5">
-            {/* The ACTIVE pill is also transparent: nothing hides the background. */}
+          <div
+            ref={linksRef}
+            className="relative flex w-max items-center gap-0.5"
+          >
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 rounded-full border border-white/55 bg-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,.55),0_2px_12px_rgba(0,0,0,.08)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              className="pointer-events-none absolute inset-y-0 rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,.55),0_2px_12px_rgba(0,0,0,.08)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
               style={{
                 left: indicator.left,
                 width: indicator.width,
                 opacity: indicator.ready ? 1 : 0,
+                background: "var(--nav-active-background)",
+                borderColor: "var(--nav-active-border)",
               }}
             />
+
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -108,10 +128,10 @@ export default function GlassNavbar() {
                 onClick={() => setActive(item.id)}
                 className={[
                   "relative z-10 shrink-0 rounded-full px-3 py-2.5 text-[11px] font-semibold tracking-[0.01em] sm:px-5 sm:py-3 sm:text-sm",
-                  "transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-800",
+                  "transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2",
                   active === item.id
-                    ? "text-zinc-950"
-                    : "text-zinc-600 hover:text-zinc-950",
+                    ? "text-[var(--nav-active-text)]"
+                    : "text-[var(--nav-text)] hover:text-[var(--nav-hover-text)]",
                 ].join(" ")}
               >
                 {item.label}

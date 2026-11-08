@@ -1,219 +1,497 @@
-/* These styles intentionally keep the white fill LOW so the page is visible through the glass. */
-.portfolio-hero {
-  min-height: 100svh;
-  background: linear-gradient(132deg, #f8f8f6 0%, #ededeb 55%, #e2e2df 100%);
-}
-.portfolio-grid {
-  background-image: linear-gradient(rgba(70,70,70,.045) 1px, transparent 1px), linear-gradient(90deg,rgba(70,70,70,.045) 1px,transparent 1px);
-  background-size: 55px 55px;
-}
-.portfolio-glow { width: 42rem; height: 42rem; border-radius: 50%; filter: blur(75px); }
-.portfolio-glow-left { background: rgba(255,255,255,.87); top: 14%; left: -16rem; }
-.portfolio-glow-right { background: rgba(145,145,145,.16); right: -9rem; top: 7%; }
-.portfolio-outline { width: 25rem; height: 25rem; right: 8%; top: 24%; border: 1px solid rgba(100,100,100,.12); border-radius: 50%; }
-.glass-name,.glass-section-heading,.glass-secondary,.glass-social,.glass-education-card,.portrait-glass-tag,.portrait-mini-orb {
-  background: linear-gradient(125deg, rgba(255,255,255,.25), rgba(255,255,255,.07) 55%, rgba(255,255,255,.17));
-  border: 1px solid rgba(255,255,255,.76);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-  box-shadow: 0 14px 40px rgba(28,28,28,.085),inset 0 1px 0 rgba(255,255,255,.85);
-}
-.glass-social:hover,.glass-secondary:hover { background: rgba(255,255,255,.43); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
-.role-enter { animation: role-appear .65s cubic-bezier(.22,1,.36,1) both; }
-@keyframes role-appear {
-  from { opacity: 0; filter: blur(6px); transform: translateY(17px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
-}
-.portrait-stage { animation: portrait-float 6s ease-in-out infinite; }
-.portrait-orbit { border: 1px solid rgba(255,255,255,.85); box-shadow: 0 10px 35px rgba(0,0,0,.055),inset 0 0 0 1px rgba(70,70,70,.09); background: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.portrait-orbit-inner { border-color: rgba(100,100,100,.14); background: transparent; }
-.portrait-photo { border: 6px solid rgba(255,255,255,.82); box-shadow: 0 27px 70px rgba(0,0,0,.15); background: #d8d8d6; }
-.portrait-mini-orb { transform: rotate(12deg); }
-@keyframes portrait-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-12px) } }
-.portfolio-education { background: linear-gradient(130deg,#e8e8e5,#f7f7f5 57%,#e5e5e2); }
-.portfolio-education-glow { top:-8rem; right:-9rem; width:35rem; height:35rem; border-radius:50%; background:rgba(255,255,255,.78); filter:blur(75px); }
-.glass-education-card { background: linear-gradient(125deg,rgba(255,255,255,.3),rgba(255,255,255,.07)); transition:transform .35s ease, background .35s ease, box-shadow .35s ease; }
-.glass-education-card:hover { transform: translateY(-5px); background:rgba(255,255,255,.32); box-shadow:0 24px 55px rgba(0,0,0,.12),inset 0 1px 0 white; }
-@media (prefers-reduced-motion: reduce) {
-  .role-enter,.portrait-stage { animation:none; }
-  .glass-education-card,.glass-social,.glass-secondary { transition:none; }
-  .glass-education-card:hover { transform:none; }
+:root {
+ 
+  --hero-background: #09090b;
+  --education-background: #09090b;
+  --projects-background: #09090b;
+  --certifications-background: #09090b;
+  --skills-background: #09090b;
+  --contact-background: #09090b;
+
+
+  --heading-color: #fafafa;
+  --text-color: #d4d4d8;
+  --muted-text-color: #a1a1aa;
+
+  --accent-color: #8b5cf6;
+  --accent-hover-color: #a78bfa;
+  --button-text-color: #ffffff;
+
+  --border-color: rgba(255, 255, 255, 0.12);
+
+  --nav-active-background: rgba(139, 92, 246, 0.16);
+  --nav-active-border: rgba(139, 92, 246, 0.35);
+  --nav-active-text: #c4b5fd;
+  --nav-text: #a1a1aa;
+  --nav-hover-text: #fafafa;
+
+  --hero-glass-background: rgba(255, 255, 255, 0.055);
+  --hero-glass-border: rgba(255, 255, 255, 0.12);
+  --hero-glass-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+
+  --availability-color: #34d399;
+
+  --education-card-background: rgba(255, 255, 255, 0.045);
+  --education-card-border: rgba(255, 255, 255, 0.11);
+  --education-card-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+
+  --education-heading-color: var(--heading-color);
+  --education-description-color: var(--text-color);
+  --education-timeline-color: rgba(255, 255, 255, 0.16);
+  --education-dot-border: #18181b;
+  --education-dot-background: var(--accent-color);
+  --education-period-color: var(--muted-text-color);
+  --education-title-color: var(--heading-color);
+  --education-place-color: var(--text-color);
+  --education-note-color: var(--text-color);
+
+  --certificate-heading-color: var(--heading-color);
+  --certificate-description-color: var(--text-color);
+
+  --certificate-icon-border: rgba(139, 92, 246, 0.25);
+  --certificate-icon-background: rgba(139, 92, 246, 0.12);
+  --certificate-icon-color: #a78bfa;
+
+  --certificate-title-color: var(--heading-color);
+  --certificate-issuer-color: var(--text-color);
+
+  --certificate-card-background: rgba(255, 255, 255, 0.045);
+  --certificate-card-border: rgba(255, 255, 255, 0.11);
+  --certificate-card-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+
+  --project-card-background: rgba(255, 255, 255, 0.045);
+  --project-card-border: rgba(255, 255, 255, 0.12);
+  --project-card-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+
+  --project-title-color: var(--heading-color);
+  --project-description-color: var(--text-color);
+  --project-tech-text: #c4c4cc;
+  --project-link-color: #c4b5fd;
+  --project-featured-text: #ddd6fe;
+  --project-divider-color: rgba(255, 255, 255, 0.12);
+
+  --project-image-background: #18181b;
+  --project-image-border: rgba(255, 255, 255, 0.12);
+
+  --skill-card-background: rgba(255, 255, 255, 0.045);
+  --skill-card-border: rgba(255, 255, 255, 0.11);
+
+  --skills-description-color: var(--text-color);
+  --skills-category-color: var(--heading-color);
+  --skills-icon-color: #c4b5fd;
+  --skills-item-color: var(--text-color);
+  --skills-divider-color: rgba(255, 255, 255, 0.12);
+
+  --contact-card-background: rgba(255, 255, 255, 0.045);
+  --contact-card-border: rgba(255, 255, 255, 0.11);
+
+  --contact-description-color: var(--text-color);
+  --contact-heading-color: var(--heading-color);
+  --contact-label-color: var(--muted-text-color);
+  --contact-icon-color: #a78bfa;
+  --contact-link-color: var(--heading-color);
+  --contact-divider-color: rgba(255, 255, 255, 0.12);
+
+  
+  --contact-input-text: #fafafa;
+  --contact-input-placeholder: #71717a;
+  --contact-input-focus: #a78bfa;
+
+  --input-background: rgba(255, 255, 255, 0.045);
+  --input-background-focus: rgba(255, 255, 255, 0.085);
+  --input-border: rgba(255, 255, 255, 0.14);
+
+  --contact-button-background: var(--accent-color);
+  --contact-button-text: #ffffff;
+
+  --contact-hint-color: var(--muted-text-color);
+  --contact-status-color: var(--text-color);
+  --contact-footer-color: var(--muted-text-color);
+  --contact-footer-link: #c4b5fd;
+
+  --watermark-color: rgba(255, 255, 255, 0.035);
+
+
+  --card-hover-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+
+  
+  --glass-blur: 18px;
 }
 
-/* Projects: glass stays genuinely see-through over the textured page background. */
+
+
+.portfolio-hero {
+  min-height: 100svh;
+  background: var(--hero-background);
+}
+
+.glass-name,
+.glass-section-heading,
+.glass-secondary,
+.glass-social,
+.portrait-glass-tag,
+.portrait-mini-orb {
+  background: var(--hero-glass-background);
+  border: 1px solid var(--hero-glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  box-shadow:
+    var(--hero-glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-social:hover,
+.glass-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.role-enter {
+  animation: role-appear 0.65s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes role-appear {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(17px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.portrait-stage {
+  animation: portrait-float 6s ease-in-out infinite;
+}
+
+.portrait-orbit {
+  border: 1px solid var(--hero-glass-border);
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  background: var(--hero-glass-background);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.portrait-orbit-inner {
+  border-color: var(--border-color);
+  background: transparent;
+}
+
+.portrait-photo {
+  border: 6px solid var(--hero-glass-border);
+  box-shadow: 0 27px 70px rgba(0, 0, 0, 0.5);
+  background: #27272a;
+}
+
+.portrait-mini-orb {
+  transform: rotate(12deg);
+}
+
+@keyframes portrait-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ========================================
+   EDUCATION SECTION
+======================================== */
+
+.portfolio-education {
+  background: var(--education-background);
+}
+
+.glass-education-card {
+  background: var(--education-card-background);
+  border: 1px solid var(--education-card-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  box-shadow:
+    var(--education-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.glass-education-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* ========================================
+   PROJECTS SECTION
+======================================== */
+
 .portfolio-projects {
-  background: linear-gradient(128deg, #e8e8e5 0%, #f5f5f3 49%, #e2e2df 100%);
+  background: var(--projects-background);
 }
-.portfolio-projects-grid {
-  background-image: linear-gradient(rgba(70,70,70,.045) 1px, transparent 1px), linear-gradient(90deg,rgba(70,70,70,.045) 1px,transparent 1px);
-  background-size: 46px 46px;
-}
+
 .portfolio-projects-watermark {
   font-size: clamp(5rem, 13vw, 15rem);
   line-height: 1;
   font-weight: 900;
-  letter-spacing: -.105em;
-  color: rgba(60,60,60,.075);
+  letter-spacing: -0.105em;
+  color: var(--watermark-color);
   white-space: nowrap;
 }
-.portfolio-projects-orb {
-  width: 34rem;
-  height: 34rem;
-  border-radius: 50%;
-  background: rgba(145,145,145,.24);
-  filter: blur(85px);
-}
-.portfolio-projects-orb-bottom { background: rgba(255,255,255,.88); }
+
 .glass-project-card {
-  border: 1px solid rgba(255,255,255,.76);
-  background: linear-gradient(125deg,rgba(255,255,255,.25),rgba(255,255,255,.07) 55%,rgba(255,255,255,.16));
+  border: 1px solid var(--project-card-border);
+  background: var(--project-card-background);
   -webkit-backdrop-filter: blur(17px) saturate(165%);
   backdrop-filter: blur(17px) saturate(165%);
-  box-shadow: 0 14px 40px rgba(28,28,28,.08),inset 0 1px 0 rgba(255,255,255,.82);
-  transition: transform .42s cubic-bezier(.22,1,.36,1),background .42s ease, box-shadow .42s ease;
+  box-shadow:
+    var(--project-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    transform 0.42s cubic-bezier(.22, 1, .36, 1),
+    background 0.42s ease,
+    box-shadow 0.42s ease;
 }
+
 .glass-project-card:hover {
   transform: translateY(-7px);
-  background: rgba(255,255,255,.27);
-  box-shadow: 0 25px 60px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.9);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: var(--card-hover-shadow);
 }
+
 .project-image-shell {
-  border: 1px solid rgba(255,255,255,.85);
-  background: rgba(205,205,202,.65);
-  box-shadow: 0 12px 25px rgba(0,0,0,.07);
+  border: 1px solid var(--project-image-border);
+  background: var(--project-image-background);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
 }
-.project-image-number, .project-image-category, .glass-project-arrow, .glass-project-filter, .project-tech-tag {
-  border: 1px solid rgba(255,255,255,.83);
-  background: rgba(255,255,255,.20);
+
+.project-image-number,
+.project-image-category,
+.glass-project-arrow,
+.glass-project-filter,
+.project-tech-tag {
+  border: 1px solid var(--project-card-border);
+  background: rgba(20, 20, 24, 0.75);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   backdrop-filter: blur(12px) saturate(150%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
-}
-.glass-project-arrow:hover,.glass-project-filter:hover {background:rgba(255,255,255,.50)}
-.glass-project-filter-active { background:rgba(255,255,255,.67);box-shadow:0 5px 19px rgba(0,0,0,.07),inset 0 1px 0 white; }
-.project-preview-backdrop { background: rgba(18,18,20,.55); -webkit-backdrop-filter:blur(13px); backdrop-filter:blur(13px); }
-.glass-project-modal {
-  border: 1px solid rgba(255,255,255,.85);
-  background:linear-gradient(120deg,rgba(248,248,246,.94),rgba(235,235,233,.93));
-  -webkit-backdrop-filter:blur(35px);backdrop-filter:blur(35px);
-  box-shadow:0 40px 100px rgba(0,0,0,.28);
-}
-@media (prefers-reduced-motion: reduce) {
-  .glass-project-card, .glass-project-filter, .glass-project-arrow { transition:none; }
-  .glass-project-card:hover {transform:none}
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
-/* Certifications, Skills, Contact — same genuinely transparent frosted-glass system. */
+.glass-project-arrow:hover,
+.glass-project-filter:hover {
+  background: rgba(139, 92, 246, 0.16);
+}
+
+.glass-project-filter-active {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow:
+    0 5px 19px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.project-preview-backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  -webkit-backdrop-filter: blur(13px);
+  backdrop-filter: blur(13px);
+}
+
+.glass-project-modal {
+  border: 1px solid var(--project-card-border);
+  background: #18181b;
+  -webkit-backdrop-filter: blur(35px);
+  backdrop-filter: blur(35px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65);
+}
+
+
 .portfolio-certifications {
-  background: linear-gradient(129deg,#e7e7e4 0%,#f3f3f0 49%,#e1e1de 100%);
+  background: var(--certifications-background);
 }
-.portfolio-skills {
-  background: linear-gradient(133deg,#f4f4f2 0%,#e6e6e3 56%,#eeeeeb 100%);
-}
-.portfolio-contact {
-  background: linear-gradient(125deg,#e4e4e1 0%,#f3f3f1 51%,#dfdfdd 100%);
-}
-.portfolio-section-watermark {
-  font-size: clamp(5rem,14vw,15rem);
-  line-height: .85;
-  font-weight: 900;
-  letter-spacing: -.095em;
-  color: rgba(55,55,55,.085);
-  white-space: nowrap;
-}
-.portfolio-cert-orb,.portfolio-skills-orb,.portfolio-contact-orb {
-  width: 36rem;
-  height: 36rem;
-  border-radius: 50%;
-  filter: blur(90px);
-  background: rgba(120,120,120,.21);
-}
-.portfolio-skills-orb { background: rgba(255,255,255,.88); }
-.portfolio-contact-orb { background: rgba(130,130,130,.22); }
-.glass-certificate,.glass-skill-card,.glass-contact-card {
-  background: linear-gradient(124deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,.065) 56%,rgba(255,255,255,.18) 100%);
-  border: 1px solid rgba(255,255,255,.79);
+
+.glass-certificate {
+  background: var(--certificate-card-background);
+  border: 1px solid var(--certificate-card-border);
   -webkit-backdrop-filter: blur(16px) saturate(165%);
   backdrop-filter: blur(16px) saturate(165%);
-  box-shadow: 0 14px 40px rgba(25,25,25,.085),inset 0 1px 0 rgba(255,255,255,.85);
-  transition: transform .38s cubic-bezier(.22,1,.36,1), background .38s,box-shadow .38s;
+  box-shadow:
+    var(--certificate-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    transform 0.38s cubic-bezier(.22, 1, .36, 1),
+    background 0.38s,
+    box-shadow 0.38s;
 }
-.glass-certificate:hover,.glass-skill-card:hover {
-  transform:translateY(-7px);
-  background:rgba(255,255,255,.30);
-  box-shadow:0 25px 52px rgba(25,25,25,.12),inset 0 1px 0 rgba(255,255,255,.9);
+
+.glass-certificate:hover {
+  transform: translateY(-7px);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: var(--card-hover-shadow);
 }
+
 .certificate-image-shell {
-  background:rgba(225,225,223,.56);
-  border:1px solid rgba(255,255,255,.86);
-  box-shadow:0 12px 28px rgba(0,0,0,.065);
+  background: var(--project-image-background);
+  border: 1px solid var(--project-image-border);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
-.certificate-number,.certificate-zoom,.glass-small-pill,.glass-skill-icon,.glass-skill-tag,.glass-contact-info {
-  background:rgba(255,255,255,.19);
-  border:1px solid rgba(255,255,255,.8);
-  -webkit-backdrop-filter:blur(12px) saturate(150%);
-  backdrop-filter:blur(12px) saturate(150%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 5px 18px rgba(0,0,0,.04);
+
+.certificate-number,
+.certificate-zoom,
+.glass-small-pill {
+  background: rgba(24, 24, 27, 0.8);
+  border: 1px solid var(--certificate-card-border);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 5px 18px rgba(0, 0, 0, 0.25);
 }
-.glass-skill-tag { transition:background .25s,transform .25s; }
-.glass-skill-tag:hover { background:rgba(255,255,255,.57); transform:translateY(-2px); }
+
+
+.portfolio-skills {
+  background: var(--skills-background);
+}
+
+.glass-skill-card {
+  background: var(--skill-card-background);
+  border: 1px solid var(--skill-card-border);
+  -webkit-backdrop-filter: blur(16px) saturate(165%);
+  backdrop-filter: blur(16px) saturate(165%);
+  box-shadow:
+    var(--certificate-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    transform 0.38s cubic-bezier(.22, 1, .36, 1),
+    background 0.38s,
+    box-shadow 0.38s;
+}
+
+.glass-skill-card:hover {
+  transform: translateY(-7px);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: var(--card-hover-shadow);
+}
+
+.glass-skill-icon,
+.glass-skill-tag {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--skill-card-border);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.glass-skill-tag {
+  transition: background 0.25s, transform 0.25s;
+}
+
+.glass-skill-tag:hover {
+  background: rgba(139, 92, 246, 0.13);
+  transform: translateY(-2px);
+}
+
+
+.portfolio-contact {
+  background: var(--contact-background);
+}
+
+.glass-contact-card {
+  background: var(--contact-card-background);
+  border: 1px solid var(--contact-card-border);
+  -webkit-backdrop-filter: blur(16px) saturate(165%);
+  backdrop-filter: blur(16px) saturate(165%);
+  box-shadow:
+    var(--certificate-card-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.glass-contact-info {
+  background: var(--contact-card-background);
+  border: 1px solid var(--contact-card-border);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
 .glass-contact-input {
-  background:rgba(255,255,255,.24);
-  border:1px solid rgba(255,255,255,.88);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
-  transition:background .25s,border-color .25s;
-}
-.glass-contact-input:focus {background:rgba(255,255,255,.56);border-color:rgba(113,113,122,.6);}
-@media (prefers-reduced-motion:reduce) {
-  .glass-certificate,.glass-skill-card,.glass-skill-tag,.glass-contact-input {transition:none;}
-  .glass-certificate:hover,.glass-skill-card:hover,.glass-skill-tag:hover {transform:none;}
+  background: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--contact-input-text);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: background 0.25s, border-color 0.25s;
 }
 
-/* Global pure white portfolio background */
-html,
-body {
-  background: #ffffff !important;
+.glass-contact-input::placeholder {
+  color: var(--contact-input-placeholder);
+  opacity: 1;
 }
 
-.portfolio-hero,
-.portfolio-education,
-.portfolio-projects,
-.portfolio-certifications,
-.portfolio-skills,
-.portfolio-contact {
-  background: #ffffff !important;
+.glass-contact-input:focus {
+  background: var(--input-background-focus);
+  border-color: var(--contact-input-focus);
+  outline: none;
 }
 
-/* Global pure white portfolio background */
-html,
-body {
-  background: #ffffff !important;
+.glass-contact-input:focus-visible {
+  --tw-ring-color: var(--contact-input-focus);
 }
 
-.portfolio-hero,
-.portfolio-education,
-.portfolio-projects,
-.portfolio-certifications,
-.portfolio-skills,
-.portfolio-contact {
-  background: #ffffff !important;
+
+.portfolio-section-watermark {
+  font-size: clamp(5rem, 14vw, 15rem);
+  line-height: 0.85;
+  font-weight: 900;
+  letter-spacing: -0.095em;
+  color: var(--watermark-color);
+  white-space: nowrap;
 }
 
-/* Remove background grids */
-.portfolio-grid,
-.portfolio-projects-grid {
-  background-image: none !important;
+
+.portfolio-hero a,
+.portfolio-education a,
+.portfolio-projects a,
+.portfolio-certifications a,
+.portfolio-skills a,
+.portfolio-contact a {
+  transition: color 0.25s ease;
 }
 
-/* Remove decorative background glows */
-.portfolio-glow,
-.portfolio-education-glow,
-.portfolio-projects-orb,
-.portfolio-cert-orb,
-.portfolio-skills-orb,
-.portfolio-contact-orb,
-.portfolio-outline {
-  display: none !important;
+
+
+@media (prefers-reduced-motion: reduce) {
+  .role-enter,
+  .portrait-stage {
+    animation: none;
+  }
+
+  .glass-education-card,
+  .glass-social,
+  .glass-secondary,
+  .glass-project-card,
+  .glass-project-filter,
+  .glass-project-arrow,
+  .glass-certificate,
+  .glass-skill-card,
+  .glass-skill-tag,
+  .glass-contact-input {
+    transition: none;
+  }
+
+  .glass-education-card:hover,
+  .glass-project-card:hover,
+  .glass-certificate:hover,
+  .glass-skill-card:hover,
+  .glass-skill-tag:hover {
+    transform: none;
+  }
 }
+```
