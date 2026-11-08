@@ -40,6 +40,7 @@ export default function Education() {
         </div>
 
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          {/* Education */}
           <div>
             <div className="mb-7">
               <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
@@ -51,7 +52,7 @@ export default function Education() {
             </div>
 
             <div className="relative space-y-6 before:absolute before:bottom-4 before:left-[17px] before:top-4 before:w-px before:bg-zinc-300 sm:before:left-[23px]">
-              {education.map((item, index) => (
+              {education.map((item) => (
                 <div
                   key={item.title}
                   className="relative pl-12 sm:pl-16"
@@ -62,28 +63,22 @@ export default function Education() {
                   />
 
                   <article className="glass-education-card group rounded-[26px] p-6 sm:p-8">
-                    <div className="flex justify-between gap-5">
-                      <div>
-                        <span className="mb-3 inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                          {item.period}
-                        </span>
-
-                        <h4 className="text-xl font-bold tracking-[-0.035em] text-zinc-900 sm:text-2xl">
-                          {item.title}
-                        </h4>
-
-                        <p className="mt-2 text-sm font-semibold text-zinc-600">
-                          {item.place}
-                        </p>
-
-                        <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600">
-                          {item.note}
-                        </p>
-                      </div>
-
-                      <span className="education-number select-none self-start text-4xl font-bold tracking-[-0.08em] text-zinc-300 sm:text-5xl">
-                        {String(index + 1).padStart(2, "0")}
+                    <div>
+                      <span className="mb-3 inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                        {item.period}
                       </span>
+
+                      <h4 className="text-xl font-bold tracking-[-0.035em] text-zinc-900 sm:text-2xl">
+                        {item.title}
+                      </h4>
+
+                      <p className="mt-2 text-sm font-semibold text-zinc-600">
+                        {item.place}
+                      </p>
+
+                      <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600">
+                        {item.note}
+                      </p>
                     </div>
                   </article>
                 </div>
@@ -91,6 +86,7 @@ export default function Education() {
             </div>
           </div>
 
+          {/* Certifications */}
           <div>
             <div className="mb-7">
               <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
@@ -102,14 +98,27 @@ export default function Education() {
             </div>
 
             <div className="space-y-5">
-              {certifications.map((certificate, index) => (
+              {certifications.map((certificate) => (
                 <article
                   key={certificate.title}
                   className="glass-certificate group relative overflow-hidden rounded-[24px] p-6"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-zinc-200 bg-white/70 text-sm font-bold text-zinc-600 shadow-sm">
-                      {String(index + 1).padStart(2, "0")}
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-zinc-200 bg-white/70 text-zinc-600 shadow-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 15l-3.5 2 1-4-3-3 4.2-.3L12 6l1.3 3.7 4.2.3-3 3 1 4z" />
+                        <path d="M8 17.5V22l4-2 4 2v-4.5" />
+                      </svg>
                     </div>
 
                     <div className="min-w-0">

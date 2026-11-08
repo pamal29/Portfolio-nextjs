@@ -80,13 +80,31 @@ export const skillGroups: { label: string; items: string[] }[] = [
 
 export const education = [
   {
-    title: "BSc in Information Systems",
+    title: "BSc (Hons) Computing and Information Systems",
     place: "Sabaragamuwa University of Sri Lanka",
-    period: "Third year", // TODO
-    note: "Software engineering focus, with team projects across web, mobile and cloud.",
+    period: "2022 – Present",
+    note: "Undergraduate studies focused on computing, information systems, software engineering, web development, mobile applications and cloud technologies.",
+  },
+  {
+    title: "G.C.E. Advanced Level – Physical Science",
+    place: "Richmond College, Galle",
+    period: "2021",
+    note: "Combined Mathematics (B), Physics (C), Chemistry (C).",
   },
 ];
 
+
 export const certifications = [
-  { title: "Machine Learning Certifications", issuer: "Coursera" }, // TODO: exact names
+  {
+    title: "Microsoft Back-End Developer Professional Certificate",
+    issuer: "Microsoft",
+  },
+  {
+    title: "AWS SimuLearn – Cloud Practitioner",
+    issuer: "Amazon Web Services",
+  },
+  {
+    title: "Networking Basics",
+    issuer: "Cisco Networking Academy",
+  },
 ];
