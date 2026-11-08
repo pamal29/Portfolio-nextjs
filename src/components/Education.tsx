@@ -19,7 +19,7 @@ export default function Education() {
 
       <div
         aria-hidden="true"
-        className="portfolio-section-watermark pointer-events-none absolute right-0 top-24 -z-10 select-none"
+        className="portfolio-section-watermark pointer-events-none absolute left-0 top-8 -z-10 select-none"
       >
         JOURNEY
       </div>

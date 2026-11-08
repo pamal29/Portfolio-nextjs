@@ -170,3 +170,50 @@
   .glass-certificate,.glass-skill-card,.glass-skill-tag,.glass-contact-input {transition:none;}
   .glass-certificate:hover,.glass-skill-card:hover,.glass-skill-tag:hover {transform:none;}
 }
+
+/* Global pure white portfolio background */
+html,
+body {
+  background: #ffffff !important;
+}
+
+.portfolio-hero,
+.portfolio-education,
+.portfolio-projects,
+.portfolio-certifications,
+.portfolio-skills,
+.portfolio-contact {
+  background: #ffffff !important;
+}
+
+/* Global pure white portfolio background */
+html,
+body {
+  background: #ffffff !important;
+}
+
+.portfolio-hero,
+.portfolio-education,
+.portfolio-projects,
+.portfolio-certifications,
+.portfolio-skills,
+.portfolio-contact {
+  background: #ffffff !important;
+}
+
+/* Remove background grids */
+.portfolio-grid,
+.portfolio-projects-grid {
+  background-image: none !important;
+}
+
+/* Remove decorative background glows */
+.portfolio-glow,
+.portfolio-education-glow,
+.portfolio-projects-orb,
+.portfolio-cert-orb,
+.portfolio-skills-orb,
+.portfolio-contact-orb,
+.portfolio-outline {
+  display: none !important;
+}

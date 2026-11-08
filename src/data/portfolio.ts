@@ -1,5 +1,5 @@
 export const profile = {
-  name: "Pamal",
+  name: "Pamal Pahasara",
   fullName: "Pamal Pahasara",
   role: "Full-Stack Developer",
   photo: "/profile.jpg",
@@ -23,6 +23,7 @@ export type Project = {
   github?: string;
   live?: string;
   featured?: boolean;
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -32,28 +33,40 @@ export const projects: Project[] = [
       "Capstone campus services platform with a rides and food backend and a mobile client, built by a student team.",
     tech: ["ASP.NET Core", "PostgreSQL", "PostGIS", "React Native"],
     featured: true,
-  },
-  {
-    title: "MealMate",
-    description: "Campus food ordering mobile app developed as a group community project.",
-    tech: ["React Native", "Expo"],
+    github: "YOUR_GITHUB_URL",
+    image: "/projects/nearu.png",
   },
   {
     title: "PickAFlick",
     description:
       "Movie and TV discovery app with search, watchlists and user accounts, powered by the TMDB API.",
     tech: ["React", "Express", "Supabase", "TMDB API"],
+    github: "YOUR_GITHUB_URL",
+    image: "/projects/pickaflick.png",
   },
   {
     title: "RepoInsight",
     description:
       "Tool that pulls repository data from the GitHub API and analyses it through a Python backend.",
     tech: ["Python", "FastAPI", "GitHub API"],
+    github: "YOUR_GITHUB_URL",
+    image: "/projects/repoinsight.png",
   },
   {
     title: "HydroTrack",
     description: "Hydration tracking mobile app built as a personal side project.",
     tech: ["React Native", "TypeScript"],
+    github: "YOUR_GITHUB_URL",
+    image: "/projects/hydrotrack.png",
+  },
+  {
+  title: "YouTube Downloader",
+  description: "A web application for downloading YouTube videos with a simple and user-friendly interface.",
+  tech: ["Your", "Actual", "Technologies"],
+  featured: false,
+  github: "YOUR_GITHUB_URL",
+  live: "",
+  image: "/projects/ytdownload.png",
   },
 ];
 
