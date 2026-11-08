@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { profile } from "../data/portfolio";
+import { Download } from "lucide-react";
 
 const roles = [
   profile.role,
@@ -83,12 +84,6 @@ export default function Hero() {
           </div>
 
           <div className="mt-11">
-            <p
-              className="mb-2 text-xs font-semibold uppercase tracking-[0.27em]"
-              style={{ color: "var(--muted-text-color)" }}
-            >
-              I&apos;m a
-            </p>
 
             <div className="flex min-h-[85px] items-center sm:min-h-[100px]">
               <h2
@@ -110,16 +105,6 @@ export default function Hero() {
           </div>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-6 rounded-full px-7 py-4 text-sm font-semibold transition-all duration-300 hover:-translate-y-1"
-              style={{
-                background: "var(--accent-color)",
-                color: "var(--button-text-color)",
-              }}
-            >
-              Explore projects <span aria-hidden="true">↗</span>
-            </a>
 
             <a
               href="#contact"
@@ -130,15 +115,20 @@ export default function Hero() {
             </a>
 
             {profile.resumeUrl && (
-              <a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-2.5 text-sm font-medium hover:underline"
-                style={{ color: "var(--accent-color)" }}
-              >
-                Download résumé
-              </a>
+              
+            <a
+              href="/resume.pdf"
+              download="Pamal_Pahasara_Resume.pdf"
+              className="glass-secondary group inline-flex items-center gap-3 rounded-full px-7 py-4 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:border-[#8b5cf6]/50 hover:shadow-[0_8px_30px_rgba(139,92,246,0.2)]"
+              style={{ color: "var(--heading-color)" }}
+            >
+              <Download
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+              Download Resume
+            </a>
+
             )}
           </div>
         </div>

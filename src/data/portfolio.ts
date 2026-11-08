@@ -13,7 +13,8 @@ export const profile = {
   email: "pamalpahasara@example.com", 
   github: "https://github.com/pamal29",
   linkedin: "https://www.linkedin.com/in/pamal-pahasara-990ba2324/", 
-  resumeUrl: "", // TODO: e.g. "/resume.pdf" with the file in /public
+  whatsapp: "94717324281",
+  resumeUrl: "/resume.pdf", 
 };
 
 export type Project = {
@@ -33,7 +34,7 @@ export const projects: Project[] = [
       "Capstone campus services platform with a rides and food backend and a mobile client, built by a student team.",
     tech: ["ASP.NET Core", "PostgreSQL", "PostGIS", "React Native"],
     featured: true,
-    github: "YOUR_GITHUB_URL",
+    github: "https://github.com/Nearu-Project-SUSL",
     image: "/projects/nearu.png",
   },
   {
@@ -41,7 +42,7 @@ export const projects: Project[] = [
     description:
       "Movie and TV discovery app with search, watchlists and user accounts, powered by the TMDB API.",
     tech: ["React", "Express", "Supabase", "TMDB API"],
-    github: "YOUR_GITHUB_URL",
+    github: "https://github.com/pamal29/PickAFlick",
     image: "/projects/pickaflick.png",
   },
   {
@@ -49,14 +50,14 @@ export const projects: Project[] = [
     description:
       "Tool that pulls repository data from the GitHub API and analyses it through a Python backend.",
     tech: ["Python", "FastAPI", "GitHub API"],
-    github: "YOUR_GITHUB_URL",
+    github: "https://github.com/pamal29/RepoInsight",
     image: "/projects/repoinsight.png",
   },
   {
     title: "HydroTrack",
     description: "Hydration tracking mobile app built as a personal side project.",
     tech: ["React Native", "TypeScript"],
-    github: "YOUR_GITHUB_URL",
+    github: "https://github.com/pamal29/HydroTrack",
     image: "/projects/hydrotrack.png",
   },
   {
@@ -64,7 +65,7 @@ export const projects: Project[] = [
   description: "A web application for downloading YouTube videos with a simple and user-friendly interface.",
   tech: ["Your", "Actual", "Technologies"],
   featured: false,
-  github: "YOUR_GITHUB_URL",
+  github: "https://github.com/pamal29/yt_download",
   live: "",
   image: "/projects/ytdownload.png",
   },
@@ -73,7 +74,7 @@ export const projects: Project[] = [
   description: "A personal developer portfolio built with React and Tailwind CSS, showcasing projects, technical skills, and social profiles.",
   tech: ["React", "Tailwind CSS,JavaScript"],
   featured: false,
-  github: "YOUR_GITHUB_URL",
+  github: "https://github.com/pamal29/react-portfolio",
   live: "",
   image: "/projects/reactportfolio.png",
   },

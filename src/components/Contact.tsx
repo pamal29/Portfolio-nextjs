@@ -8,27 +8,26 @@ import {
   FiMapPin,
   FiSend,
 } from "react-icons/fi";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { profile } from "@/data/portfolio";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const [needsEmail, setNeedsEmail] = useState(false);
 
+  // WhatsApp number: country code + number, digits only (e.g. 94771234567)
+  const whatsappNumber = (profile.whatsapp || "").replace(/\D/g, "");
+  const whatsappHref = whatsappNumber
+    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        `Hi ${profile.name}, I found you through your portfolio.`
+      )}`
+    : "";
+
   const socialLinks = [
-    {
-      label: "GitHub",
-      href: profile.github,
-      Icon: FaGithub,
-    },
-    {
-      label: "LinkedIn",
-      href: profile.linkedin,
-      Icon: FaLinkedinIn,
-    },
-  ].filter(
-    (item) => item.href && !item.href.includes("your-username")
-  );
+    { label: "GitHub", href: profile.github, Icon: FaGithub },
+    { label: "LinkedIn", href: profile.linkedin, Icon: FaLinkedinIn },
+    { label: "WhatsApp", href: whatsappHref, Icon: FaWhatsapp },
+  ].filter((item) => item.href && !item.href.includes("your-username"));
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,21 +41,33 @@ export default function Contact() {
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim();
     const subject =
-      String(form.get("subject") || "").trim() ||
-      `Hello from ${name}`;
+      String(form.get("subject") || "").trim() || `Hello from ${name}`;
     const message = String(form.get("message") || "").trim();
 
+    const fullSubject = `Portfolio: ${subject}`;
     const body = `${message}\n\n—\n${name}\n${email}`;
 
-    const params = new URLSearchParams({
-      subject: `Portfolio: ${subject}`,
-      body,
-    });
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    window.location.href = `mailto:${profile.email}?${params.toString()}`;
+    if (isMobile) {
+      // Phones: open the native mail app
+      const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(
+        fullSubject
+      )}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    } else {
+      // Desktop: open Gmail compose in a new tab (works without a mail app)
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+        profile.email
+      )}&su=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(
+        body
+      )}`;
+      window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    }
 
     setSent(true);
     setNeedsEmail(false);
+    event.currentTarget.reset();
   }
 
   return (
@@ -168,6 +179,36 @@ export default function Contact() {
                     )}
                   </div>
                 </div>
+
+                {whatsappHref && (
+                  <div className="glass-contact-info flex items-center gap-4 rounded-[20px] p-4">
+                    <div
+                      className="glass-skill-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                      style={{ color: "var(--contact-icon-color)" }}
+                    >
+                      <FaWhatsapp size={20} aria-hidden="true" />
+                    </div>
+
+                    <div className="min-w-0">
+                      <p
+                        className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+                        style={{ color: "var(--contact-label-color)" }}
+                      >
+                        WhatsApp
+                      </p>
+
+                      <a
+                        href={whatsappHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 block text-sm font-semibold hover:underline"
+                        style={{ color: "var(--contact-link-color)" }}
+                      >
+                        Chat with me
+                      </a>
+                    </div>
+                  </div>
+                )}
 
                 <div className="glass-contact-info flex items-center gap-4 rounded-[20px] p-4">
                   <div
@@ -317,7 +358,8 @@ export default function Contact() {
                   className="text-xs"
                   style={{ color: "var(--contact-hint-color)" }}
                 >
-                  Opens your email app — no message is sent automatically.
+                  Opens Gmail or your email app — no message is sent
+                  automatically.
                 </p>
 
                 <button
@@ -344,8 +386,8 @@ export default function Contact() {
                 ) : sent ? (
                   <span className="inline-flex items-center gap-2">
                     <FiCheck aria-hidden="true" />
-                    Your email app should open with a drafted message. Check it
-                    before sending.
+                    Your email draft should be open now. Review it and press
+                    Send there.
                   </span>
                 ) : null}
               </div>
@@ -355,7 +397,7 @@ export default function Contact() {
 
         {/* Footer */}
         <footer
-          className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t py-7 text-xs"
+          className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t py-4 text-xs"
           style={{
             borderColor: "var(--contact-divider-color)",
             color: "var(--contact-footer-color)",
